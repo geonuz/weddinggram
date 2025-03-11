@@ -1,0 +1,37 @@
+.message{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    justify-content: space-between;
+
+    .left{
+        display: flex;
+        flex-direction: row;
+
+        .message_profile{
+            img {
+                margin-right: 15px;
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border: 1px solid $gray-color;
+                border-radius: 50%;
+                padding: 1px;
+            }
+        }
+        .message_info{
+            display: block;
+            .name{
+                margin-top: 0px;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+            .p_message{
+                margin: 0px;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,106 @@
+.root{
+    display: flex;
+    flex-direction: row;
+    @include small-screen{
+        flex-direction: column;
+    }
+
+    .page{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-left: 184px;
+        background-color: #ffffff;
+
+        @include medium-screen{
+            margin-left: 82px;
+        }       
+
+        @include small-screen{
+            margin-left: 0;
+            margin-bottom: 35px;
+            &:has(.header_container) {
+                margin-bottom: 0;
+            }    
+        }
+
+        .post_container{
+            max-width: 650px;
+            background-color: #ffffff;
+            margin: 20px auto;
+
+            @include small-screen{
+                max-width: 100%;
+                margin: 0 auto;
+            }  
+            .posts{
+                margin-top: 15px;
+            }   
+        }
+
+        .explore_container{
+            margin: 20px auto;
+            width: 650px;
+
+            @include small-screen{
+                margin-top: 0;
+            }
+
+            .search_bar{
+                display: flex;
+                background-color: #f0f0f0; // 회색 배경
+                border-radius: 8px; // 모서리 라운드 처리
+                padding: 10px; // 내부 여백
+                margin: 20px 10px;
+                margin-top: 0;
+
+                .search_icon {
+                    margin-right: 8px; // 아이콘과 텍스트 사이의 간격
+                }
+            
+                .search_text {
+                    color: #333; // 텍스트 색상
+                    font-size: 16px; // 텍스트 크기
+                }
+            }
+            .explore_grid{
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+
+                @include small-screen{
+                    width: 100%;
+                }
+            }    
+        }
+
+        .header_container{
+            display: flex;
+            flex-direction: column;
+            width: 650px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            background-color: #ffffff;
+
+            @include small-screen{
+                width: 100%;
+                height: 100vh;
+            }
+
+            .header{
+                display: flex;
+                justify-content: space-between;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                padding: 1rem 0;
+                background-color: #ffffff;
+                svg{
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weddingram</title>
+    <link rel="icon" href="{{ url_for('static', filename='icons/Instagram_icon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass/vender/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass/vender/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass/vender/cropper.min.css') }}">
+</head>
+<body>
+    <div class="root">
+        <!--***** nav menu start ****** -->
+        {% set active_page = 'twocut' %}
+        {% include 'nav.html' %}
+        <!--***** nav menu end ****** -->
+        <div class="page">
+            <div class="header_container">
+                <div class="header">
+                    <a href="{{url_for('wedding_home')}}">
+                        <svg aria-label="돌아가기" class="back_btn" fill="rgb(0,0,0)" role="img" viewBox="0 0 24 24">
+                            <line fill="none" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="2.909" x2="22.001" y1="12.004" y2="12.004"></line>
+                            <polyline fill="none" points="9.276 4.726 2.001 12.004 9.276 19.274" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                        </svg>    
+                    </a>
+                </div>
+
+                <div class="twocut_container">
+                    <div class="photo-booth">
+                        <div class="photos">
+                            <div class="photo-frame" data-frame="1">
+                                <div class="photo-container">
+                                    <img class="photo" crossorigin="anonymous">
+                                    <img src="{{ url_for('static', filename='icons/frame1.png') }}" class="frame-decoration" crossorigin="anonymous">
+                                </div>
+                                <div class="upload-btn">사진 업로드</div>
+                            </div>
+                            <div class="photo-frame" data-frame="2">
+                                <div class="photo-container">
+                                    <img class="photo" crossorigin="anonymous">
+                                    <img src="{{ url_for('static', filename='icons/frame2.png') }}" class="frame-decoration" crossorigin="anonymous">
+                                </div>
+                                <div class="upload-btn">사진 업로드</div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <p class="f-title">웨딩두컷</p>
+                            <p class="f-message">MINSU ♥ YUNA</p>
+                            <p class="f-date">2025.3.11</p>
+                        </div>
+                        
+                        <div class="shutter-button" id="saveImage">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 크롭 모달 -->
+        <div class="modal fade" id="cropModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="crop-wrapper">
+                            <div class="cropper-container">
+                                <img id="cropImage">
+                            </div>
+                            <div class="btn-group mt-3">
+                                <button class="btn btn-primary" id="cropDone">적용하기</button>
+                                <button class="btn btn-secondary" id="cropCancel">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="file" id="fileInput" style="display: none" accept="image/*">
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script src="{{ url_for('static', filename='js/twocut.js') }}"></script>
+        <script>
+            const config = {{ config|tojson|safe }};
+        </script>
+    </div>
+</body>
+
+</html>

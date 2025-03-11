@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weddingram</title>
+    <link rel="icon" href="{{ url_for('static', filename='icons/Instagram_icon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass/vender/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass/vender/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sass/main.css') }}">
+</head>
+<body>
+    <div class="root">
+        <!--***** nav menu start ****** -->
+        {% set active_page = 'messages' %}
+        {% include 'nav.html' %}
+        <!--***** nav menu end ****** -->
+        <div class="page">    
+            <div class="header_container">
+                <div class="header">
+                    <a href="{{url_for('wedding_home')}}" class="back_btn">
+                        <svg aria-label="돌아가기"  fill="rgb(0,0,0)" role="img" viewBox="0 0 24 24">
+                            <title>돌아가기</title>
+                            <line fill="none" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="2.909" x2="22.001" y1="12.004" y2="12.004"></line>
+                            <polyline fill="none" points="9.276 4.726 2.001 12.004 9.276 19.274" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                        </svg>    
+                    </a>
+                    <div class="right">
+                        <button type="button" class="new_message_btn" aria-label="새로운 메시지">
+                            <svg aria-label="새로운 메시지" fill="rgb(0,0,0)" role="img" viewBox="0 0 24 24">
+                                <title>새로운 메시지</title>
+                                <path d="M12.202 3.203H5.25a3 3 0 0 0-3 3V18.75a3 3 0 0 0 3 3h12.547a3 3 0 0 0 3-3v-6.952" fill="none" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                <path d="M10.002 17.226H6.774v-3.228L18.607 2.165a1.417 1.417 0 0 1 2.004 0l1.224 1.225a1.417 1.417 0 0 1 0 2.004Z" fill="none" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                <line fill="none" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.848" x2="20.076" y1="3.924" y2="7.153"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="message_container">
+                    {% for message in messages %}
+                    <div class="message" data-message-id="{{ message.id }}">
+                        <div class="left">
+                            <div class="message_profile">
+                                <img src="{{ url_for('static', filename='media/profile_image/' + message.profile_image) }}" alt="">
+                            </div>
+                            <div class="message_info">
+                                <p class="name">{{ message.name }}</p>
+                                <p class="p_message">{{ message.comment }}</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-link delete-message p-0" style="color: #dc3545;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <!-- 클릭시 노출할 피드 모달 창 추가 -->
+            <div class="modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="messageModalLabel">방명록 작성</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('save_message') }}" 
+                                method="POST" 
+                                enctype="multipart/form-data" 
+                                autocomplete="off">
+                                <!-- 프로필 정보 입력 영역 -->
+                                <div class="profile-input-area mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="profile-image-upload">
+                                            <label for="profile-image" class="d-flex flex-column align-items-center">
+                                                <div class="profile-preview" style="width: 60px; height: 60px; border-radius: 50%; background: #f0f0f0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                                                    <img id="preview" src="{{ url_for('static', filename='media/profile_image/default.jpg') }}" alt="프로필 이미지" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </div>
+                                                <input type="file" id="profile-image" name="profile_image" accept="image/*" style="display: none;">
+                                                <small class="text-muted mt-1">이미지 선택</small>
+                                            </label>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <input type="text" 
+                                                class="form-control" 
+                                                id="profile-name"
+                                                name="name" 
+                                                placeholder="이름을 입력하세요"
+                                                required
+                                                style="border-radius: 20px;"
+                                                autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <input type="password" 
+                                            class="form-control" 
+                                            id="password"
+                                            name="password" 
+                                            placeholder="삭제용 비밀번호를 입력하세요"
+                                            required
+                                            style="border-radius: 20px;"
+                                            autocomplete="new-password">
+                                    </div>
+                                </div>
+
+                                <!-- 메시지 입력 영역 -->
+                                <div class="message-input-area position-relative">
+                                    <textarea 
+                                        id="comment"
+                                        name="comment"
+                                        class="form-control"
+                                        placeholder="방명록을 작성해주세요" 
+                                        rows="3"
+                                        required
+                                        style="width: 100%; padding: 10px; resize: vertical; border-radius: 15px;"
+                                        autocomplete="off"></textarea>
+                                    <button type="submit" 
+                                        class="btn btn-primary position-absolute message_submit" 
+                                        style="bottom: 10px; right: 10px; border-radius: 20px;">
+                                        전송
+                                    </button>
+                                </div>
+                            </form>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 삭제 확인 모달 추가 -->
+            <div class="modal fade" id="deleteModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">메시지 삭제</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="password" 
+                                class="form-control" 
+                                id="delete-password" 
+                                placeholder="작성 시 입력한 비밀번호를 입력하세요">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" id="confirm-delete">삭제</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+       
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
+    <script src="{{ url_for('static', filename='owlcarousel/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/message.js') }}"></script>
+    <script>
+        // Python에서 전달받은 설정값을 JavaScript 변수로 설정 
+        const config = {{ config|tojson|safe }};
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+.post{
+    width: 100%;
+
+    font-size: 14px;
+    margin-bottom: 15px;
+    @include ex-small-screen{
+        width: 100%;
+    }
+    .info {
+        padding: 0 10px;
+        margin-bottom: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        .person{
+            img{
+                width: 45px;
+                height: 45px;
+                border-radius: 30px;
+                padding: 5px;
+            }
+            a{
+                color: $black;
+                font-weight: 600;
+                margin-right: 5px;
+            }
+        }
+
+    }
+    .slider_wrapper{
+        width: 100%;
+        
+        .slider {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            max-height: 500px;
+            margin-bottom: 8px;
+
+            .media_wrapper {
+                display: flex;
+                transition: transform 0.3s ease-in-out;
+                height: 100%;
+
+                .media {
+                    width: 100%;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    // &.shorts{
+                    //     background: #000000;
+                    // }
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                    
+                    video {
+                        height: 100%;
+                        object-fit: contain;
+
+                    }
+                }
+            }
+            
+            .slider-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 30px;
+                height: 30px;
+                background-color: rgba(255, 255, 255, 0.5);
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 1;
+                
+                @include ex-small-screen {
+                    display: none; // 모바일에서는 화살표 숨김
+                }
+                
+                &.prev {
+                    left: 10px;
+                }
+                
+                &.next {
+                    right: 10px;
+                }
+                
+                svg {
+                    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+                }
+            }
+            
+            &:hover .slider-arrow {
+                opacity: 1;
+            }
+        }
+        
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 8px;
+            
+            .nav-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: #c7c7c7;
+                transition: background-color 0.3s ease;
+                
+                &.active {
+                    background-color: #0095f6;
+                }
+            }
+        }
+    }
+    .desc{
+        padding: 10px;
+        p{
+            font-weight: 400;
+            margin: 10px 0;
+        }
+        a{
+            &.bold{
+                font-weight: 600;
+                color: $black;
+            }
+            &.gray{
+                color: $gray-color;
+                font-weight: 400;
+            }
+        }
+        .icons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            cursor: pointer;
+
+            .icon_left {
+                display: flex;
+                gap: 15px;
+                
+                .like {
+                    &.liked {
+                        animation: likeEffect 0.5s ease;
+                    }
+                    &.unliked {
+                        animation: likeEffect 0.5s ease;
+                    }
+                }
+
+                .like, .chat {
+                    display: flex;
+                    align-items: center;
+                    
+                    span {
+                        margin-left: 5px;
+                        line-height: 24px;
+                    }
+                }
+            }
+            
+            .save {
+                display: flex;
+                align-items: center;
+                
+            }
+        }
+        input{
+            border: none;
+            color: $gray-color;
+        }
+    }
+}
+
+@keyframes likeEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+} 

@@ -1,0 +1,119 @@
+.nav{
+    background-color: white;
+
+    .nav_pc{
+        z-index: 200;
+        display: flex;
+        position: fixed;
+        flex-direction: column;
+        background-color: white;
+        @include small-screen{
+            display: none;
+        }
+        justify-content: space-between;
+        height: 100vh;
+        padding: 24px;
+        border-right:1px solid $separator-color ;
+        .small-logo{
+            width: 30px;
+        }
+        .menu{
+            ul{
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+                margin-bottom: 5em;
+                
+                li{
+                    margin-bottom: 25px;
+                    a{
+                        color: $black;
+                        font-size: 17px;
+                        display: flex;
+                        flex-direction: row;
+                        font-weight: 400;
+                        &.active{
+                            font-weight: 500;
+                        }
+                        svg{
+                            object-fit: contain;
+                            margin-right: 10px;
+                            width: 24px;
+                            height: 24px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .nav_xm{
+        display: none;
+        @include ex-small-screen{
+            display: flex;
+            width: 100vw;
+        }
+        justify-content: space-between;
+        padding: 15px;
+        .logo{
+            width: 100px;
+        }
+        .right{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            svg{
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+    
+    .nav_sm{
+        display: none;
+        @include small-screen{
+            display: flex;
+            width: 100vw;
+        }
+        @include ex-small-screen{
+            display: none;
+        }
+        justify-content: space-between;
+        padding: 15px;
+        .right{
+            display: flex;
+            align-items: center;
+            svg{
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}
+
+
+.nav_bottom{
+    display: none;
+    z-index: 10;
+    background-color: $body-bg;
+    position: fixed;
+    bottom: 0;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px 15px;
+    width: 100%;
+    svg{
+        width: 30px;
+        height: 30px;
+    }
+
+    @include small-screen{
+        display: flex;
+        flex-direction: row;
+    }
+
+    @include ex-small-screen{
+        justify-content: space-between;
+    }
+
+}    

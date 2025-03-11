@@ -1,0 +1,30 @@
+[GLOBAL]
+DEBUG = true
+FIREBASE_KEY_PATH = './firestore_privatekey.json'
+
+[STATIC]
+[STATIC.PATHS]
+POST = "./static/media/post/"
+PROFILE = "./static/media/profile_image/"
+
+[STATIC.ALLOWED_EXTENSIONS]
+IMAGE = ["png", "jpg", "jpeg", "gif"]
+VIDEO = ["mp4", "webm", "ogg"]
+
+[UPLOAD]
+[UPLOAD.PATHS]
+PROFILE = "./uploads/profile/"
+TWOCUT = "./uploads/twocut/"
+
+[UPLOAD.MAX_SIZE]
+PROFILE = 15728640
+TWOCUT = 15728640
+
+[UPLOAD.ALLOWED_EXTENSIONS]
+IMAGE = ["png", "jpg", "jpeg", "gif"]
+
+[UPLOAD.ALLOWED_TYPES]
+IMAGE = ["image/jpeg", "image/png", "image/gif"]
+
+[CACHE]
+EXPIRATION = 600

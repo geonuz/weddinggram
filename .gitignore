@@ -1,0 +1,30 @@
+# 환경 변수 파일
+.env
+
+# Python 컴파일된 파일
+__pycache__/
+*.pyc
+*.pyo
+
+# 로그 파일
+*.log
+
+# 정적 파일 및 업로드된 파일
+uploads/twocut/*
+uploads/profile/*
+static/media/post/*
+static/media/profile_image/*
+static/media/story/*
+
+# IDE 및 편집기 설정 파일
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 기타 임시 파일
+*.tmp
+*.bak
+
+# KEY file
+firestore_privatekey.json
